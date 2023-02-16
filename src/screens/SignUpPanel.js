@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, } from 'react'
 import "./SignUpPanel.css";
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function SignUpPanel() {
     const emailRef = useRef();
@@ -9,6 +10,8 @@ function SignUpPanel() {
     const { signUp } = useAuth();
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
+    const history = useNavigate()
+    
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -21,6 +24,8 @@ function SignUpPanel() {
             setError("")
             setLoading(true)
             await signUp(emailRef.current.value, passwordRef.current.value)
+            history("/")
+            
         }
         catch {
             setError("Failed to create an account")

@@ -2,14 +2,17 @@ import React from 'react'
 import Nav from '../components/Nav'
 import './ProfileScreen.css'
 import { useAuth } from '../contexts/AuthContext'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 
 function ProfileScreen() {
   const { currentUser, logout } = useAuth();
+  const history = useNavigate()
   function handleLogout(e) {
     e.preventDefault()
     if (currentUser) {
-      logout();
+      logout()
+      history("/")
     }
   }
   return (
